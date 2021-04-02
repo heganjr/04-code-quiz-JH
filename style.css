@@ -2,6 +2,6 @@
 then on event listener click show the question to cycle through questions */
 
 .question {
-    display: none
+    display: none 
 }
 
