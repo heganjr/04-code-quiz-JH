@@ -111,19 +111,19 @@ function displayChoices(currentQuestion) {
 
 let answerA = document.querySelector("#choice-0")
 console.log(answerA)
-answerA.addEventListener("click", rightOrWrong);
+answerA.addEventListener("click", displayChoices);
 
 let answerB = document.querySelector("#choice-1")
 console.log(answerB)
-answerB.addEventListener("click", rightOrWrong);
+answerB.addEventListener("click", displayChoices);
 
 let answerC = document.querySelector("#choice-2")
 console.log(answerC)
-answerC.addEventListener("click", rightOrWrong);
+answerC.addEventListener("click", displayChoices);
 
 let answerD = document.querySelector("#choice-3")
 console.log(answerD)
-answerD.addEventListener("click", rightOrWrong);
+answerD.addEventListener("click", displayChoices);
 // Event listener works if function changed to displayQuestion
 
 // let buttonAnswer = document.querySelectorALL(".question button")
