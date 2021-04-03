@@ -10,11 +10,11 @@
       rel="stylesheet"
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
       crossorigin="anonymous"
-      />
-      <link rel= "stylesheet" href= "style.css"/> 
+    />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <header>
-    <button>View Highscore</button>
+    <button id="view-leaderboard">View Highscores</button>
     <p>Time <span id="countdown">60</span></p>
   </header>
   <body>
@@ -30,7 +30,7 @@
         top-left.
         <br />
         Submit your score upon completion to be forever remembered amongst the
-        JavaScript Coding Folklore
+        JavaScript Coding Folklore!
       </p>
       <br />
       <h3>Are you ready?</h3>
@@ -39,7 +39,7 @@
     </section>
 
     <section class="question">
-    <!-- Questions pulled from "let Questions =[] object" -->
+      <!-- Questions pulled from "let Questions =[] object" -->
       <h3 id="question-text"></h3>
       <!-- For each "Q" in the questions array -->
       <button id="choice-0"></button>
@@ -47,15 +47,24 @@
       <button id="choice-2"></button>
       <button id="choice-3"></button>
       <!-- For each "choices" in questions array -->
-      <p></p>
+      <p id="right-or-wrong"></p>
       <!-- ^^^ "Wrong" and "Correct" -->
     </section>
-    
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
+
+    <section class="initial-input">
+      <h2>SUBMIT YOUR SCORE!</h2>
+      <p>Your score is <span id="score-text"></span></p>
+      <input id="initial-field" type="text" />
+      <button id="submit-button">SUBMIT</button>
+    </section>
+
+    <section class="leaderboard">
+      <h2>LEADERBOARD</h2>
+      <ul></ul>
+      <button id="go-back-button">Go Back!</button>
+    </section>
+    <!-- Creatle element in JS <li> and <p> -->
+
     <script src="script.js"></script>
   </body>
 </html>

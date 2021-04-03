@@ -58,11 +58,10 @@ let questions = [
 // Array for each question - Do a for loop to cycle through the questions each time I click on button
 // Display check answer for a few seconds and then move onto next question
 
-let questionIndex = 0;
 let beginButton = document.getElementById("begin");
 let timer = 60;
 let countdownTimer = document.getElementById("countdown");
-let timerInitialise;
+let timerStart;
 
 beginButton.addEventListener("click", quizStartOnButtonClick);
 
@@ -70,35 +69,41 @@ function tickTock() {
   timer--;
   countdownTimer.textContent = timer;
   if (timer <= 0) {
-    clearInterval(timerInitialise);
     timer = 0;
     countdownTimer.textContent = timer;
+    quizIsOver()
   }
 }
 
+const introSection = document.querySelector("#intro");
+const questionSection = document.querySelector(".question");
+
+
 function quizStartOnButtonClick() {
-  timerInitialise = setInterval(tickTock, 1000);
+  timerStart = setInterval(tickTock, 1000);
+  hideAllSections()
   displayQuestion();
-  var introSection = document.querySelector("#intro");
-  introSection.style.display = "none";
-  var questionSection = document.querySelector(".question");
   questionSection.style.display = "block";
 }
+
+let questionIndex = 0;
+var currentQuestion = undefined;
 
 function displayQuestion() {
   // if questionIndex >= questions.length then quiz is over
   // else carry on with displayCurrentQuestion()
-  var currentQuestion = questions[questionIndex];
-  var h3Element = document.querySelector("#question-text");
-  h3Element.textContent = currentQuestion.Q;
-  displayChoices(currentQuestion);
-  questionIndex++;
+  if (questionIndex >= questions.length) {
+    quizIsOver();
+  } else {
+    currentQuestion = questions[questionIndex];
+    var h3Element = document.querySelector("#question-text");
+    h3Element.textContent = currentQuestion.Q;
+    displayChoices(currentQuestion);
+    questionIndex++;
+  }
 }
 
 function displayChoices(currentQuestion) {
-  // var buttonElement = document.querySelector("#choice0");
-  // buttonElement.textContent = currentQuestion.Choices[0]
-  // made redundant by loop below
   var choices = currentQuestion.Choices;
   for (let choicesIndex = 0; choicesIndex < choices.length; choicesIndex++) {
     const choiceText = choices[choicesIndex];
@@ -109,46 +114,120 @@ function displayChoices(currentQuestion) {
   }
 }
 
-let answerA = document.querySelector("#choice-0")
-console.log(answerA)
-answerA.addEventListener("click", displayChoices);
+const answerA = document.querySelector("#choice-0");
+answerA.addEventListener("click", rightOrWrong);
 
-let answerB = document.querySelector("#choice-1")
-console.log(answerB)
-answerB.addEventListener("click", displayChoices);
+const answerB = document.querySelector("#choice-1");
+answerB.addEventListener("click", rightOrWrong);
 
-let answerC = document.querySelector("#choice-2")
-console.log(answerC)
-answerC.addEventListener("click", displayChoices);
+const answerC = document.querySelector("#choice-2");
+answerC.addEventListener("click", rightOrWrong);
 
-let answerD = document.querySelector("#choice-3")
-console.log(answerD)
-answerD.addEventListener("click", displayChoices);
+const answerD = document.querySelector("#choice-3");
+answerD.addEventListener("click", rightOrWrong);
 // Event listener works if function changed to displayQuestion
 
-// let buttonAnswer = document.querySelectorALL(".question button")
-// let questionAnswer = currentQuestion[index]
+// function toCycleToNextQuestion(){
+//   rightOrWrong()
+//   displayQuestion()
 
-// function rightOrWrong(){
-//   if (buttonAnswer === questionAnswer) {
-    
-//   } else {
-    
-//   }
+const pElement = document.querySelector("#right-or-wrong")
 
-// }
+function rightOrWrong(eventObject) {
+  var buttonThatWasClicked = eventObject.target;
+  let buttonAnswerText = buttonThatWasClicked.textContent;
+  // eventObject listens to event that was clicked
+  // array of objects in the eventObject "target" is identified as the html selector
+  // 
+  let questionAnswerText = currentQuestion.Answer;
+  if (buttonAnswerText === questionAnswerText) {
+    pElement.textContent ="CORRECT 😊";
+  } else {
+    timePenalty()
+    pElement.textContent ="WRONG 😥";
+    // Text is added to <p> element in the questionSection
+  }
+ 
+  displayQuestion();
+}
+
+function timePenalty(){
+  timer-=10
+  countdownTimer.textContent = timer;
+  if(timer<=0){
+    timer= 0
+    quizIsOver()
+  }
+  // check that quiz
+  // Deducting 10 seconds from timer
+}
+
+const initialInputSection = document.querySelector(".initial-input")
+
+function quizIsOver(){
+  clearInterval(timerStart);
+  hideAllSections();
+  initialInputSection.style.display = "block"
+  
+}
+
+const leaderboardSection = document.querySelector(".leaderboard")
+const buttonInitialInputSection = document.querySelector("#submit-button")
+
+buttonInitialInputSection.addEventListener("click", displayLeaderboard)
+
+const highscoreButtonElement = document.querySelector("#view-leaderboard")
+
+highscoreButtonElement.addEventListener("click", displayLeaderboard)
+
+const goBackElement = document.querySelector("#go-back-button")
+goBackElement.addEventListener("click", refreshPage)
+
+function refreshPage(){
+  location.reload();
+}
+
+function displayLeaderboard(){
+  hideAllSections()
+  leaderboardSection.style.display = "block"
+  clearInterval(timerStart)
+  saveInitialAndScore()
+}
+
+const scoreTextSpanElement = document.querySelector("#score-text")
+scoreTextSpanElement.textContent = countdownTimer.textContent
+// score is not updating to current time
+
+const initialFieldElement = document.querySelector("#initial-field")
+
+
+function saveInitialAndScore(){
+  document.createElement("li")
+
+}
+// Create Li element based on initials entered in input element and score based on time (not working) will be hyphenated after the initials
+
+
+
+
+
+function hideAllSections(){
+  introSection.style.display = "none"
+  questionSection.style.display = "none"
+  initialInputSection.style.display = "none"
+  leaderboardSection.style.display = "none"
+}
+  // Used as a 'reset' to ensure that all sections that have had their display manipulated has been reset to default
+
+
 // if button value = Answer property of the CurrentQuestion array then correct (CORRECT), else it is wrong (WRONG) and time is deducted
-
-
 
 // eventListeners on buttons (in Global Scope) - DO NOT ADD event listeners into the for loop - DONE
 // EventListens call function OnWhetherAnswerIsCorrect show "CORRECT" else "WRONG"
 // After checking answer (whithin same function) call function displayCurrentQuestion
-
 
 // WHEN I answer a question incorrectly
 // THEN time is subtracted from the clock
 // THEN the game is over
 // WHEN the game is over
 // THEN I can save my initials and my score
-
