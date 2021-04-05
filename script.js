@@ -59,6 +59,7 @@ let questions = [
 // Display check answer for a few seconds and then move onto next question
 
 let beginButton = document.getElementById("begin");
+
 let timer = 60;
 let countdownTimer = document.getElementById("countdown");
 let timerStart;
@@ -84,6 +85,7 @@ function quizStartOnButtonClick() {
   hideAllSections()
   displayQuestion();
   questionSection.style.display = "block";
+  console.log(countdownTimerText.innerHTML)
 }
 
 let questionIndex = 0;
@@ -157,17 +159,25 @@ function timePenalty(){
   if(timer<=0){
     timer= 0
     quizIsOver()
+    
   }
   // check that quiz
   // Deducting 10 seconds from timer
 }
 
 const initialInputSection = document.querySelector(".initial-input")
+const countdownTimerText = document.querySelector("#countdown")
 
 function quizIsOver(){
   clearInterval(timerStart);
   hideAllSections();
   initialInputSection.style.display = "block"
+  if (timer <=0) {
+    countdownTimerText.style.color = "red";
+    
+  } else {
+    // Keep styling as it is
+  }
   
 }
 
@@ -195,7 +205,8 @@ function displayLeaderboard(){
 }
 
 const scoreTextSpanElement = document.querySelector("#score-text")
-scoreTextSpanElement.textContent = countdownTimer.textContent
+scoreTextSpanElement.innerHTML = countdownTimer.textContent
+console.log(countdownTimerText.innerHTML)
 // score is not updating to current time
 
 const initialFieldElement = document.querySelector("#initial-field")
