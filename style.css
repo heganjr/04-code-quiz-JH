@@ -13,6 +13,7 @@ then on event listener click show the question to cycle through questions */
     --black: #000000ff;
     --border-radius: 0.5rem;
     margin: auto;
+    
 }
 
 header {
@@ -50,6 +51,12 @@ p {
     color: var(--platinum);
     border-top: 4px solid var(--platinum);
     margin-top: 4px;
+}
+
+ul {
+    list-style-type: none;
+    font-size: 32px;
+    padding-inline-start: 0;
 }
 
 

@@ -85,7 +85,7 @@ function quizStartOnButtonClick() {
   hideAllSections()
   displayQuestion();
   questionSection.style.display = "block";
-  console.log(countdownTimerText.innerHTML)
+
 }
 
 let questionIndex = 0;
@@ -178,6 +178,9 @@ function quizIsOver(){
   } else {
     // Keep styling as it is
   }
+
+scoreTextSpanElement.innerHTML = countdownTimer.textContent
+
   
 }
 
@@ -197,30 +200,68 @@ function refreshPage(){
   location.reload();
 }
 
+const highscoreList = document.querySelector("#highscore-list")
+
 function displayLeaderboard(){
   hideAllSections()
   leaderboardSection.style.display = "block"
   clearInterval(timerStart)
   saveInitialAndScore()
+  for (let i = 0; i < leaderboardArray.length; i++) {
+    const userScore = leaderboardArray[i];
+    const liElement = document.createElement('li')
+    highscoreList.append(liElement)
+    liElement.textContent = (userScore.initials + " " + userScore.score)
+  }
+  
 }
 
+
+
+
 const scoreTextSpanElement = document.querySelector("#score-text")
-scoreTextSpanElement.innerHTML = countdownTimer.textContent
-console.log(countdownTimerText.innerHTML)
 // score is not updating to current time
 
 const initialFieldElement = document.querySelector("#initial-field")
 
 
-function saveInitialAndScore(){
-  document.createElement("li")
 
+let leaderboardArray = []
+// blank array append objects to this
+let initialAndScoreObject;
+
+
+
+function saveInitialAndScore(){
+  // buttonInitialInputSection.preventDefault
+  initialAndScoreObject = {
+    score: timer ,
+    initials: initialFieldElement.value 
+    // Save the initial and value
+    // sortArray - Sort by number value
+    
+  }
+  isThereAnythingInLocalStorage()
+
+  leaderboardArray.push(initialAndScoreObject)
+  // push the initial and score object to the leaderboard array
+  console.log(leaderboardArray)
+  window.localStorage.setItem("leaderboardArray", JSON.stringify(leaderboardArray))
+  
 }
 // Create Li element based on initials entered in input element and score based on time (not working) will be hyphenated after the initials
 
-
-
-
+function isThereAnythingInLocalStorage(){
+  let leaderboardInLocalStorage = window.localStorage.getItem("leaderboardArray")
+  if (leaderboardInLocalStorage!==null) {
+    // if leaderboardInLocalStorage has something in it anything (it is NOT NULL) Parse this back
+    leaderboardArray = JSON.parse(leaderboardInLocalStorage)
+    
+  } 
+  else {
+    // continue with localStorage.stringify (saveInitialAndScore)
+  }
+}
 
 function hideAllSections(){
   introSection.style.display = "none"
