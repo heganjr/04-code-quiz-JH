@@ -72,20 +72,18 @@ function tickTock() {
   if (timer <= 0) {
     timer = 0;
     countdownTimer.textContent = timer;
-    quizIsOver()
+    quizIsOver();
   }
 }
 
 const introSection = document.querySelector("#intro");
 const questionSection = document.querySelector(".question");
 
-
 function quizStartOnButtonClick() {
   timerStart = setInterval(tickTock, 1000);
-  hideAllSections()
+  hideAllSections();
   displayQuestion();
   questionSection.style.display = "block";
-
 }
 
 let questionIndex = 0;
@@ -133,153 +131,151 @@ answerD.addEventListener("click", rightOrWrong);
 //   rightOrWrong()
 //   displayQuestion()
 
-const pElement = document.querySelector("#right-or-wrong")
+const pElement = document.querySelector("#right-or-wrong");
 
 function rightOrWrong(eventObject) {
   var buttonThatWasClicked = eventObject.target;
   let buttonAnswerText = buttonThatWasClicked.textContent;
   // eventObject listens to event that was clicked
   // array of objects in the eventObject "target" is identified as the html selector
-  // 
+  //
   let questionAnswerText = currentQuestion.Answer;
   if (buttonAnswerText === questionAnswerText) {
-    pElement.textContent ="CORRECT 😊";
+    pElement.textContent = "CORRECT 😊";
   } else {
-    timePenalty()
-    pElement.textContent ="WRONG 😥";
+    timePenalty();
+    pElement.textContent = "WRONG 😥";
     // Text is added to <p> element in the questionSection
   }
- 
+
   displayQuestion();
 }
 
-function timePenalty(){
-  timer-=10
+function timePenalty() {
+  timer -= 10;
   countdownTimer.textContent = timer;
-  if(timer<=0){
-    timer= 0
-    quizIsOver()
-    
+  if (timer <= 0) {
+    timer = 0;
+    quizIsOver();
   }
   // check that quiz
   // Deducting 10 seconds from timer
 }
 
-const initialInputSection = document.querySelector(".initial-input")
-const countdownTimerText = document.querySelector("#countdown")
+const initialInputSection = document.querySelector(".initial-input");
+const countdownTimerText = document.querySelector("#countdown");
 
-function quizIsOver(){
+function quizIsOver() {
   clearInterval(timerStart);
   hideAllSections();
-  initialInputSection.style.display = "block"
-  if (timer <=0) {
+  initialInputSection.style.display = "block";
+  if (timer <= 0) {
     countdownTimerText.style.color = "red";
-    
   } else {
     // Keep styling as it is
   }
 
-scoreTextSpanElement.innerHTML = countdownTimer.textContent
-
-  
+  scoreTextSpanElement.innerHTML = countdownTimer.textContent;
 }
 
-const leaderboardSection = document.querySelector(".leaderboard")
-const buttonInitialInputSection = document.querySelector("#submit-button")
+const leaderboardSection = document.querySelector(".leaderboard");
+const buttonInitialInputSection = document.querySelector("#submit-button");
 
-buttonInitialInputSection.addEventListener("click", displayLeaderboard)
+// buttonInitialInputSection.addEventListener("click", alertIfNoInitialsSubmitted);
+// Doesn't work in accordance with saveInitialAndScore eventListener below.
+buttonInitialInputSection.addEventListener("click", saveInitialAndScore);
 
-const highscoreButtonElement = document.querySelector("#view-leaderboard")
+const highscoreButtonElement = document.querySelector("#view-leaderboard");
 
-highscoreButtonElement.addEventListener("click", displayLeaderboard)
+highscoreButtonElement.addEventListener("click", saveInitialAndScore);
 
-const goBackElement = document.querySelector("#go-back-button")
-goBackElement.addEventListener("click", refreshPage)
+const goBackElement = document.querySelector("#go-back-button");
+goBackElement.addEventListener("click", refreshPage);
 
-function refreshPage(){
+function refreshPage() {
   location.reload();
 }
 
-const highscoreList = document.querySelector("#highscore-list")
+// function alertIfNoInitialsSubmitted(){
+// if(!initialFieldElement.value)
+//   alert("This field is required to submit")
+//   ;
+// }
 
-function displayLeaderboard(){
-  hideAllSections()
-  leaderboardSection.style.display = "block"
-  clearInterval(timerStart)
-  saveInitialAndScore()
+const highscoreList = document.querySelector("#highscore-list");
+
+function displayLeaderboard() {
+  hideAllSections();
+  leaderboardSection.style.display = "block";
+  clearInterval(timerStart);
   for (let i = 0; i < leaderboardArray.length; i++) {
     const userScore = leaderboardArray[i];
-    const liElement = document.createElement('li')
-    highscoreList.append(liElement)
-    liElement.textContent = (userScore.initials + " " + userScore.score)
+    const liElement = document.createElement("li");
+
+    highscoreList.append(liElement);
+    liElement.textContent = userScore.initials + " " + userScore.score;
   }
-  
-}
-
-
-
-
-const scoreTextSpanElement = document.querySelector("#score-text")
-// score is not updating to current time
-
-const initialFieldElement = document.querySelector("#initial-field")
-
-
-
-let leaderboardArray = []
-// blank array append objects to this
-let initialAndScoreObject;
-
-
-
-function saveInitialAndScore(){
-  // buttonInitialInputSection.preventDefault
-  initialAndScoreObject = {
-    score: timer ,
-    initials: initialFieldElement.value 
-    // Save the initial and value
-    // sortArray - Sort by number value
-    
-  }
-  isThereAnythingInLocalStorage()
-
-  leaderboardArray.push(initialAndScoreObject)
-  // push the initial and score object to the leaderboard array
-  console.log(leaderboardArray)
-  window.localStorage.setItem("leaderboardArray", JSON.stringify(leaderboardArray))
-  
 }
 // Create Li element based on initials entered in input element and score based on time (not working) will be hyphenated after the initials
 
-function isThereAnythingInLocalStorage(){
-  let leaderboardInLocalStorage = window.localStorage.getItem("leaderboardArray")
-  if (leaderboardInLocalStorage!==null) {
+const scoreTextSpanElement = document.querySelector("#score-text");
+// score is not updating to current time
+
+const initialFieldElement = document.querySelector("#initial-field");
+
+let leaderboardArray = [];
+// blank array append objects to this
+let initialAndScoreObject;
+
+function sortLeaderBoard() {
+  leaderboardArray.sort(function (a, b) {
+    return b.score - a.score;
+  });
+}
+
+function saveInitialAndScore() {
+  initialAndScoreObject = {
+    score: timer,
+    initials: initialFieldElement.value,
+    // Save the initial and value
+    // sortArray - Sort by number value
+  };
+  isThereAnythingInLocalStorage();
+
+  leaderboardArray.push(initialAndScoreObject);
+  // push the initial and score object to the leaderboard array
+  console.log(leaderboardArray);
+  window.localStorage.setItem(
+    "leaderboardArray",
+    JSON.stringify(leaderboardArray)
+  );
+
+  sortLeaderBoard();
+  displayLeaderboard();
+}
+
+function isThereAnythingInLocalStorage() {
+  let leaderboardInLocalStorage = window.localStorage.getItem(
+    "leaderboardArray"
+  );
+  if (leaderboardInLocalStorage !== null) {
     // if leaderboardInLocalStorage has something in it anything (it is NOT NULL) Parse this back
-    leaderboardArray = JSON.parse(leaderboardInLocalStorage)
-    
-  } 
-  else {
+    leaderboardArray = JSON.parse(leaderboardInLocalStorage);
+  } else {
     // continue with localStorage.stringify (saveInitialAndScore)
   }
 }
 
-function hideAllSections(){
-  introSection.style.display = "none"
-  questionSection.style.display = "none"
-  initialInputSection.style.display = "none"
-  leaderboardSection.style.display = "none"
+function hideAllSections() {
+  introSection.style.display = "none";
+  questionSection.style.display = "none";
+  initialInputSection.style.display = "none";
+  leaderboardSection.style.display = "none";
 }
-  // Used as a 'reset' to ensure that all sections that have had their display manipulated has been reset to default
-
+// Used as a 'reset' to ensure that all sections that have had their display manipulated has been reset to default
 
 // if button value = Answer property of the CurrentQuestion array then correct (CORRECT), else it is wrong (WRONG) and time is deducted
 
 // eventListeners on buttons (in Global Scope) - DO NOT ADD event listeners into the for loop - DONE
 // EventListens call function OnWhetherAnswerIsCorrect show "CORRECT" else "WRONG"
 // After checking answer (whithin same function) call function displayCurrentQuestion
-
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-// THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and my score

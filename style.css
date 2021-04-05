@@ -1,63 +1,64 @@
 /* Questions are all in the HTML in style sheet set default style to display = none
 then on event listener click show the question to cycle through questions */
 
-.question, .initial-input, .leaderboard {
-    display: none 
+.question,
+.initial-input,
+.leaderboard {
+  display: none;
 }
 
 :root {
-    /* CSS HEX */
-    --heat-wave: #ff7b08ff;
-    --platinum: #ebebebff;
-    --davys-grey: #5a5a5aff;
-    --black: #000000ff;
-    --border-radius: 0.5rem;
-    margin: auto;
-    
+  /* CSS HEX */
+  --heat-wave: #ff7b08ff;
+  --platinum: #ebebebff;
+  --davys-grey: #5a5a5aff;
+  --black: #000000ff;
+  --border-radius: 0.5rem;
+  margin: auto;
 }
 
 header {
-    font-weight: bolder;
+  font-weight: bolder;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: var(--black);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--black);
 }
 
 body {
-    text-align: center;
-    background-color: var(--heat-wave);
-    color: var(--platinum)
+  text-align: center;
+  background-color: var(--heat-wave);
+  color: var(--platinum);
 }
 
 #begin {
-    font-size: 2rem;
-
+  font-size: 2rem;
 }
 
 button {
-    background-color: var(--black);
-    border-color: var(--platinum);
-    color: var(--platinum);
-    border-radius: var(--border-radius);
-    
+  background-color: var(--black);
+  border-color: var(--platinum);
+  color: var(--platinum);
+  border-radius: var(--border-radius);
 }
 
 p {
-    font-weight: bolder;
+  font-weight: bolder;
 }
 
 #right-or-wrong {
-    color: var(--platinum);
-    border-top: 4px solid var(--platinum);
-    margin-top: 4px;
+  color: var(--platinum);
+  border-top: 4px solid var(--platinum);
+  margin-top: 4px;
 }
 
 ul {
-    list-style-type: none;
-    font-size: 32px;
-    padding-inline-start: 0;
+  list-style-type: none;
+  font-size: 32px;
+  padding-inline-start: 0;
 }
-
-
-

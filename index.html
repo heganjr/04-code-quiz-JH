@@ -12,6 +12,24 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/images/fav-icon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/images/fav-icon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/images/fav-icon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="assets/images/fav-icon/site.webmanifest" />
   </head>
   <header>
     <button id="view-leaderboard">View Highscores</button>
@@ -23,13 +41,17 @@
       <p>
         You will have 60 seconds to answer all five questions
         <br />
-        Be wary, for every answer you get wrong, 10 seconds will be deducted
-        from the time remaining
         <br />
-        Your final score will be the time remaining
-<br />
-View the current highscores with the "View Highscores" button in the
+        Be wary, for every answer you get wrong, 10 seconds will be deducted
+        from the time remaining.
+        <br />
+        <br />
+        Your final score will be the time remaining.
+        <br />
+        <br />
+        View the current highscores with the "View Highscores" button in the
         top-left.
+        <br />
         <br />
         Submit your score upon completion to be forever remembered amongst the
         JavaScript Coding Folklore!
@@ -55,14 +77,20 @@ View the current highscores with the "View Highscores" button in the
     <section class="initial-input">
       <h2>SUBMIT YOUR SCORE!</h2>
       <p>Your score is <span id="score-text"></span></p>
+      <p>
+        Enter your initials below <br />
+        🥳
+      </p>
+
       <input id="initial-field" type="text" />
+      <!-- input element -->
       <button id="submit-button">SUBMIT</button>
     </section>
 
     <section class="leaderboard">
+      <button id="go-back-button">Go Back!</button>
       <h2>LEADERBOARD</h2>
       <ul id="highscore-list"></ul>
-      <button id="go-back-button">Go Back!</button>
     </section>
     <!-- Creatle element in JS <li> and <p> -->
 
